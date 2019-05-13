@@ -11,7 +11,7 @@
                 <input type="password" class="form-control" id="passwordId" placeholder="Password" v-model="password" />
             </div>
 
-            <button class="btn btn-primary" @click.prevent="signIn">Submit</button>
+            <button class="btn btn-primary" @click.prevent="signUp">Submit</button>
         </form>
     </div>
 </template>
@@ -29,7 +29,7 @@
         },
 
         methods: {
-            async signIn () {
+            async signUp () {
                 try {
                     let response = await this.$http.post(`${API_ENDPOINT_BASE}signup`,
                         {
