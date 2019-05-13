@@ -16,4 +16,5 @@ use Illuminate\Http\Request;
 
 Route::group([], function ($router) {;
     Route::post('signup', 'AuthController@signUp');
+    Route::post('signin', 'AuthController@signIn');
 });

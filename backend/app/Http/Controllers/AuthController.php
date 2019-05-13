@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SignInUserRequest;
 use App\Http\Requests\SignUpUserRequest;
 use App\Services\User\UserService;
 
@@ -34,5 +35,21 @@ class AuthController extends Controller
                'message' => "Oooops! something wrong happen"
            ], 402);
        }
+    }
+
+    public function signIn(SignInUserRequest $request)
+    {
+        $credentials = request(['email', 'password']);
+
+        if (!$token = auth()->attempt($credentials)) {
+            return response()->json(
+                [   "status" => false,
+                    "message" => "User not found",
+                ], 402);
+        }
+
+        return response()->json([
+            'token' => $token
+        ], 200);
     }
 }
