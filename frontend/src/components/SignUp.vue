@@ -1,19 +1,17 @@
 <template>
-    <div>
+    <div class="col-md-4 offset-4">
         <div class="alert alert-danger" role="alert" v-if="errorMessage">
             {{ errorMessage}}
         </div>
         <form>
             <div class="form-group">
-                <label for="emailId">Email address</label>
-                <input type="email" class="form-control" id="emailId" aria-describedby="emailHelp" v-model="email" placeholder="Enter email">
+                <input type="email" class="form-control" id="emailId" aria-describedby="emailHelp" v-model="email" placeholder="Enter email" />
             </div>
             <div class="form-group">
-                <label for="passwordId">Password</label>
-                <input type="password" class="form-control" id="passwordId" placeholder="Password" v-model="password">
+                <input type="password" class="form-control" id="passwordId" placeholder="Password" v-model="password" />
             </div>
 
-            <button class="btn btn-primary" @click.prevent="sign_in">Submit</button>
+            <button class="btn btn-primary" @click.prevent="signIn">Submit</button>
         </form>
     </div>
 </template>
@@ -31,7 +29,7 @@
         },
 
         methods: {
-            async sign_in () {
+            async signIn () {
                 try {
                     let response = await this.$http.post(`${API_ENDPOINT_BASE}signup`,
                         {
