@@ -44,9 +44,7 @@
                         }
                     );
 
-
-                    //TO DO : redirect signIn page
-
+                    this.$router.push({name: 'signin'})
 
                 } catch (error) {
                     this.errorMessage = error.response.data.message
