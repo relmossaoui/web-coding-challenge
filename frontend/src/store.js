@@ -26,6 +26,10 @@ export default new Vuex.Store({
       state.pending = false;
       state.isLogged = false;
       state.loginErrorMessage = message;
+    },
+    LOGIN_OUT(state) {
+      localStorage.removeItem('token')
+      state.isLogged = false;
     }
   },
   actions: {
@@ -50,5 +54,11 @@ export default new Vuex.Store({
         commit('LOGIN_FAILED', error.response.data.message)
       }
     },
+
+    logout({commit}, options) {
+      commit('LOGIN_OUT')
+
+      options.vm.$router.push({name: 'signin'});
+    }
   }
 })

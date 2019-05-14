@@ -1,12 +1,33 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/signup">sign up</router-link> |
-      <router-link to="/signin">sign in</router-link>
+      <template v-if="!isLogged">
+        <router-link to="/signup">sign up</router-link> |
+        <router-link to="/signin">sign in</router-link>
+      </template>
+      <template v-else>
+        <a href="#" @click.prevent="signOut">sign out</a>
+      </template>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+  export default {
+    methods: {
+      signOut() {
+        this.$store.dispatch('logout', {"vm": this});
+      }
+    },
+
+    computed: {
+      isLogged() {
+        return this.$store.state.isLogged
+      }
+    }
+  }
+</script>
 
 <style>
 #app {
