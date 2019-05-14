@@ -6,6 +6,7 @@
         <router-link to="/signin">sign in</router-link>
       </template>
       <template v-else>
+        <router-link to="/shops">Shops</router-link> |
         <a href="#" @click.prevent="signOut">sign out</a>
       </template>
     </div>
@@ -48,5 +49,33 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.shop-card {
+  text-align: center;
+  line-height: 75px;
+  font-size: 20px;
+  width: 15%;
+  margin: 20px 20px 0 0;
+}
+
+.shop-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.shop-image {
+  height: 300px;
+}
+
+.shop-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.shop-links a {
+  width: 100px;
 }
 </style>

@@ -48,7 +48,7 @@ export default new Vuex.Store({
 
           commit('LOGIN_SUCCESS', response.data.token)
 
-          //TO DO : redirect to main shops page
+        options.vm.$router.push({name: 'shops'});
 
       } catch (error) {
         commit('LOGIN_FAILED', error.response.data.message)

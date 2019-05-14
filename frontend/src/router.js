@@ -2,8 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import SignUp from './components/SignUp.vue'
 import SignIn from './components/SignIn.vue'
+import Shops from './components/Shops.vue'
 
-Vue.use(Router)
+
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -17,6 +19,12 @@ export default new Router({
       path: '/signin',
       name: 'signin',
       component: SignIn
-    }
+    },
+    ,
+    {
+      path: '/shops',
+      name: 'shops',
+      component: Shops
+    },
   ]
 })
