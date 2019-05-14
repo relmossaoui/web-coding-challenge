@@ -24,7 +24,11 @@ class ShopController extends Controller
         try {
             $user = auth()->userOrFail();
 
+            $preferredShops = $user->shops()->get();
+
             $shops = $this->shopService->getShops();
+
+            $shops = $shops->diff($preferredShops);
 
             return response()->json([
                 'shops' => $shops,
