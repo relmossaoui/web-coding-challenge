@@ -21,4 +21,5 @@ Route::group([], function ($router) {;
 
 Route::group([ 'middleware' => 'api', 'prefix' => 'shops'], function () {
     Route::post('', 'ShopController@getShops');
+    Route::post('like', 'ShopController@likeShop');
 });
