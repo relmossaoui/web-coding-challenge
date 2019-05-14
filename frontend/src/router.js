@@ -3,26 +3,12 @@ import Router from 'vue-router'
 import SignUp from './components/SignUp.vue'
 import SignIn from './components/SignIn.vue'
 import Shops from './components/Shops.vue'
-import store from './store.js'
 import PreferredShops from "./components/PreferredShops";
 
+import { loggedGuard } from './guard.js'
+import { NotLoggedGuard } from './guard.js'
+
 Vue.use(Router);
-
-function loggedGuard(to, from, next){
-  if(store.state.isLogged) {
-    next();
-  } else{
-    next('/signin');
-  }
-}
-
-function NotoggedGuard(to, from, next){
-  if(! store.state.isLogged) {
-    next();
-  } else{
-    next('/shops');
-  }
-}
 
 export default new Router({
   mode: 'history',
@@ -30,14 +16,14 @@ export default new Router({
     {
       path: '/signup',
       name: 'signup',
-      beforeEnter: NotoggedGuard,
+      beforeEnter: NotLoggedGuard,
       component: SignUp
     },
 
     {
       path: '/signin',
       name: 'signin',
-      beforeEnter: NotoggedGuard,
+      beforeEnter: NotLoggedGuard,
       component: SignIn
     },
 
