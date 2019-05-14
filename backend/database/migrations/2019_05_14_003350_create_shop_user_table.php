@@ -16,7 +16,6 @@ class CreateShopUserTable extends Migration
         Schema::create('shop_user', function (Blueprint $table) {
             $table->bigInteger('user_id');
             $table->bigInteger('shop_id');
-            $table->timestamps();
         });
     }
 
