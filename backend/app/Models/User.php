@@ -48,4 +48,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    /**
+     * The shops that belong to the user.
+     */
+    public function shops()
+    {
+        return $this->belongsToMany(Shop::class);
+    }
 }

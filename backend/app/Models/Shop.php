@@ -15,4 +15,12 @@ class Shop extends Model
     protected $fillable = [
         'name', 'distance'
     ];
+
+    /**
+     * The users that belong to the shop.
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
