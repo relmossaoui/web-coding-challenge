@@ -25,6 +25,7 @@ function NotoggedGuard(to, from, next){
 }
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/signup',
@@ -52,5 +53,9 @@ export default new Router({
       beforeEnter: loggedGuard,
       component: PreferredShops
     },
+    {
+      path: "*",
+      redirect: "/shops"
+    }
   ]
 })
