@@ -18,3 +18,7 @@ Route::group([], function ($router) {;
     Route::post('signup', 'AuthController@signUp');
     Route::post('signin', 'AuthController@signIn');
 });
+
+Route::group([ 'middleware' => 'api', 'prefix' => 'shops'], function () {
+    Route::post('', 'ShopController@getShops');
+});
