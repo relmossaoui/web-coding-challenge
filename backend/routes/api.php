@@ -23,4 +23,5 @@ Route::group([ 'middleware' => 'api', 'prefix' => 'shops'], function () {
     Route::post('', 'ShopController@getShops');
     Route::post('like', 'ShopController@likeShop');
     Route::post('preferred', 'ShopController@getPreferredShops');
+    Route::post('remove', 'ShopController@removePreferredShop');
 });
