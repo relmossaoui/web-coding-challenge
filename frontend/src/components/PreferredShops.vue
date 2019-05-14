@@ -5,7 +5,7 @@
                 <h4> {{ shop.name }} </h4>
                 <img class="card-img-top shop-image" :src="shop.image_url" alt="Shop image">
                 <div class="card-body shop-links">
-                    <a href="#" class="btn btn-danger">Remove</a>
+                    <a href="#" class="btn btn-danger" @click.prevent="removeShop(shop)">Remove</a>
                 </div>
             </div>
         </div>
@@ -18,7 +18,8 @@
     export default {
         data () {
             return {
-                preferredShops: []
+                preferredShops: [],
+                errorMessage: null
             }
         },
         async created() {
@@ -37,6 +38,29 @@
             } catch (error) {
                 if (error.response.data.type == 1) {
                     this.$store.dispatch('logout', {"vm": this})
+                }
+            }
+        },
+
+        methods: {
+            async removeShop(shop) {
+                try {
+                    let response = await this.$http.post(`${API_ENDPOINT_BASE}shops/remove?token=${localStorage.getItem('token')}`,
+                        {
+                            "shopId" : shop.id
+                        },
+                        {
+                            headers : {
+                                'Content-type': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            }
+                        }
+                    );
+
+                    this.preferredShops.splice(this.preferredShops.indexOf(shop), 1)
+
+                } catch (error) {
+                    this.errorMessage = error.response.data.message
                 }
             }
         }
