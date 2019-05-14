@@ -61,4 +61,19 @@ class ShopController extends Controller
             return response()->json(['status' => false, 'message' => "Something wrong happen", 'type' => self::UNKNOWN_REASON], 402);
         }
     }
+
+    public function getPreferredShops()
+    {
+        try {
+            $user = auth()->userOrFail();
+            $preferredShops = $user->shops;
+
+            return response()->json(['shops' => $preferredShops], 200);
+
+        } catch (UserNotDefinedException $e) {
+            return response()->json(['status' => false, 'message' => "User not found", 'type' => self::INVALID_TOKEN], 402);
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => "Something wrong happen", 'type' => self::UNKNOWN_REASON], 402);
+        }
+    }
 }
