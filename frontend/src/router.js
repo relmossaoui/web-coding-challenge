@@ -5,9 +5,6 @@ import SignIn from './components/SignIn.vue'
 import Shops from './components/Shops.vue'
 import PreferredShops from "./components/PreferredShops";
 
-import { loggedGuard } from './guard.js'
-import { NotLoggedGuard } from './guard.js'
-
 Vue.use(Router);
 
 export default new Router({
@@ -16,27 +13,27 @@ export default new Router({
     {
       path: '/signup',
       name: 'signup',
-      beforeEnter: NotLoggedGuard,
+      meta: { notRequiresAuth: true },
       component: SignUp
     },
 
     {
       path: '/signin',
       name: 'signin',
-      beforeEnter: NotLoggedGuard,
+      meta: { notRequiresAuth: true },
       component: SignIn
     },
 
     {
       path: '/shops',
       name: 'shops',
-      beforeEnter: loggedGuard,
+      meta: { requiresAuth: true },
       component: Shops
     },
     {
       path: '/shops/preferred',
       name: 'shops-preferred',
-      beforeEnter: loggedGuard,
+      meta: { requiresAuth: true },
       component: PreferredShops
     },
     {
