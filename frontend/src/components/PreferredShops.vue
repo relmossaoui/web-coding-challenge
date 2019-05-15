@@ -1,7 +1,7 @@
 <template>
     <keep-alive>
         <div class="shop-container">
-            <div v-for="shop in preferredShops" class="card shop-card">
+            <div v-for="shop in preferredShops" class="card shop-card" :key="shop.id">
                 <h4> {{ shop.name }} </h4>
                 <img class="card-img-top shop-image" :src="shop.image_url" alt="Shop image">
                 <div class="card-body shop-links">
