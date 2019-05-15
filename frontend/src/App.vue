@@ -60,6 +60,24 @@
   margin: 20px 20px 0 0;
 }
 
+@media (min-width: 1025px) {
+  .shop-card {
+    width: 20%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .shop-card {
+    width: 25%;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .shop-card {
+    width: 50%;
+  }
+}
+
 .shop-container {
   display: flex;
   flex-wrap: wrap;
