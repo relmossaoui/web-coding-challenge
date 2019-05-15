@@ -79,13 +79,19 @@
 
 @media (min-width: 768px) and (max-width: 1024px) {
   .shop-card {
-    width: 25%;
+    width: 47%;
   }
 }
 
 @media (min-width: 481px) and (max-width: 767px) {
   .shop-card {
-    width: 50%;
+    width: 47%;
+  }
+}
+
+@media (max-width: 480px) {
+  .shop-card {
+    width: 90%;
   }
 }
 
@@ -97,6 +103,7 @@
 
 .shop-image {
   height: 300px;
+  object-fit: cover;
 }
 
 .shop-links {
