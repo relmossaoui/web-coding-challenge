@@ -1,6 +1,10 @@
-# frontend
+# Frontend Setup
 
-## Project setup
+``` 
+cd frontend
+```
+
+## Install dependencies
 ```
 npm install
 ```
@@ -15,25 +19,13 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+# Used technologies
+
+- [Vue js 2.6.10](https://vuejs.org)
+- [Vuex 3.0.1](https://vuex.vuejs.org)
+- [Vue-router 3.0.3](https://router.vuejs.org)
+- [Axios 0.18.0](https://github.com/axios/axios)
+- [BootStrap 4.3.1](https://getbootstrap.com/docs/4.3/getting-started/introduction)
