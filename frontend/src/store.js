@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {API_ENDPOINT_BASE} from './config/index.js';
+import { http } from './config/index.js';
+import router from './router.js'
 
 Vue.use(Vuex)
 
@@ -36,29 +37,21 @@ export default new Vuex.Store({
     async login ({commit}, options) {
       commit('LOGIN');
       try {
-          let response = await options.vm.$http.post(`${API_ENDPOINT_BASE}signin`,
-              options.credentials,
-              {
-                headers : {
-                  'Content-type': 'application/json',
-                  'X-Requested-With': 'XMLHttpRequest'
-                }
-              }
-          );
+        let response = await http('post', 'signin', options.credentials);
 
-          commit('LOGIN_SUCCESS', response.data.token)
+        commit('LOGIN_SUCCESS', response.data.token)
 
-        options.vm.$router.push({name: 'shops'});
+        router.push({name: 'shops'});
 
       } catch (error) {
         commit('LOGIN_FAILED', error.response.data.message)
       }
     },
 
-    logout({commit}, options) {
+    logout({commit}) {
       commit('LOGIN_OUT')
 
-      options.vm.$router.push({name: 'signin'});
+      router.push({name: 'signin'});
     }
   }
 })

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import {API_ENDPOINT_BASE} from '../config/index.js';
+    import { http } from '../config/index.js';
 
     export default {
         data () {
@@ -21,16 +21,10 @@
                 errorMessage: null
             }
         },
+
         async created() {
             try {
-                let response = await this.$http.post(`${API_ENDPOINT_BASE}shops?token=${localStorage.getItem('token')}`,
-                    {
-                        headers : {
-                            'Content-type': 'application/json',
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    }
-                );
+                let response = await http('post', `shops?token=${localStorage.getItem('token')}`);
 
                 this.shops = response.data.shops
 
@@ -44,17 +38,9 @@
         methods: {
             async likeShop(shop) {
                 try {
-                    let response = await this.$http.post(`${API_ENDPOINT_BASE}shops/like?token=${localStorage.getItem('token')}`,
-                        {
-                            "shopId" : shop.id
-                        },
-                        {
-                            headers : {
-                                'Content-type': 'application/json',
-                                'X-Requested-With': 'XMLHttpRequest'
-                            }
-                        }
-                    );
+                    await http('post', `shops/like?token=${localStorage.getItem('token')}`, {
+                        "shopId" : shop.id
+                    });
 
                     this.shops.splice(this.shops.indexOf(shop), 1)
 

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import {API_ENDPOINT_BASE} from '../config/index.js';
+    import { http } from '../config/index.js';
 
     export default {
         data () {
@@ -24,14 +24,7 @@
         },
         async created() {
             try {
-                let response = await this.$http.post(`${API_ENDPOINT_BASE}shops/preferred?token=${localStorage.getItem('token')}`,
-                    {
-                        headers : {
-                            'Content-type': 'application/json',
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    }
-                );
+                let response = await http('post', `shops/preferred?token=${localStorage.getItem('token')}`);
 
                 this.preferredShops = response.data.shops
 
@@ -45,17 +38,9 @@
         methods: {
             async removeShop(shop) {
                 try {
-                    let response = await this.$http.post(`${API_ENDPOINT_BASE}shops/remove?token=${localStorage.getItem('token')}`,
-                        {
-                            "shopId" : shop.id
-                        },
-                        {
-                            headers : {
-                                'Content-type': 'application/json',
-                                'X-Requested-With': 'XMLHttpRequest'
-                            }
-                        }
-                    );
+                    await http('post', `shops/remove?token=${localStorage.getItem('token')}`, {
+                        "shopId" : shop.id
+                    });
 
                     this.preferredShops.splice(this.preferredShops.indexOf(shop), 1)
 

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import {API_ENDPOINT_BASE} from '../config/index.js';
+    import { http } from '../config/index.js';
 
     export default {
         data () {
@@ -31,18 +31,10 @@
         methods: {
             async signUp () {
                 try {
-                    let response = await this.$http.post(`${API_ENDPOINT_BASE}signup`,
-                        {
-                            "email" : this.email,
-                            "password": this.password
-                        },
-                        {
-                            headers : {
-                                'Content-type': 'application/json',
-                                'X-Requested-With': 'XMLHttpRequest'
-                            }
-                        }
-                    );
+                    await http('post', `signup`, {
+                        "email" : this.email,
+                        "password": this.password
+                    });
 
                     this.$router.push({name: 'signin'})
 
