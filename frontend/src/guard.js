@@ -1,17 +1,23 @@
 import store from "./store";
 
-export const loggedGuard = (to, from, next) => {
-    if(store.state.isLogged) {
-        next();
-    } else{
-        next('/signin');
+export default (to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (! store.state.isLogged) {
+            next('/signin')
+        } else {
+            next()
+        }
+    } else {
+        next()
     }
-}
 
-export const NotLoggedGuard = (to, from, next) => {
-    if(! store.state.isLogged) {
-        next();
-    } else{
-        next('/shops');
+    if (to.matched.some(record => record.meta.notRequiresAuth)) {
+        if (store.state.isLogged) {
+            next('/shops')
+        } else {
+            next()
+        }
+    } else {
+        next()
     }
 }
