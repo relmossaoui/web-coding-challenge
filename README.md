@@ -8,10 +8,10 @@
 git clone git@github.com:nextred/web-coding-challenge.git
 ```
 #
-# [Backend](backend/readme.md)
+# [Backend Setup](backend/readme.md)
 
-# [Frontend](frontend/README.md)
+# [Frontend Setup](frontend/README.md)
 
-## Deployment app
+## For deployment
 
 - [See nginx example config](deploy/dev.remote-backend.ma.conf)
