@@ -30,7 +30,7 @@
 
             } catch (error) {
                 if (error.response.data.type == 1) {
-                    this.$store.dispatch('logout', {"vm": this})
+                    this.$store.dispatch('logout')
                 }
             }
         },
