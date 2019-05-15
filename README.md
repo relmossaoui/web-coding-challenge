@@ -5,12 +5,12 @@
 ### clone the repository : 
 
 ```
-git@github.com:nextred/web-coding-challenge.git
+git clone git@github.com:nextred/web-coding-challenge.git
 ```
 #
 # [Backend](backend/readme.md)
 
-# [Frontend](frontend/readme.md)
+# [Frontend](frontend/README.md)
 
 ## Deployment app
 

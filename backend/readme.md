@@ -11,7 +11,7 @@ cd backend
 ``` 
 composer install
 ```
-#### Copy .env.example to .env
+##### Copy .env.example to .env
 ``` 
 cp .env.example .env
 ```
@@ -24,7 +24,7 @@ php artisan key:generate
 php artisan jwt:secret
 ```
 
-##Project launch
+## Project launch
 
 #### Create database with utf8_general_ci encoding :
 ``` 
@@ -43,8 +43,6 @@ php artisan db:seed
 ```
 ## Used technologies
 - [Laravel 5.8+](https://laravel.com/docs/5.8)
-
-## Used packages: 
 - [jwt-auth 1.0](https://github.com/tymondesigns/jwt-auth)
 
 
