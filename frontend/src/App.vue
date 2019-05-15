@@ -19,7 +19,7 @@
   export default {
     methods: {
       signOut() {
-        this.$store.dispatch('logout', {"vm": this});
+        this.$store.dispatch('logout');
       }
     },
 

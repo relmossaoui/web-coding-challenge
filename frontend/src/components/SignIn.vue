@@ -27,7 +27,7 @@
 
         methods: {
             async signIn () {
-                this.$store.dispatch('login', {"vm": this, "credentials" :{
+                this.$store.dispatch('login', { "credentials" : {
                     "email" : this.email,
                     "password": this.password
                 }})
