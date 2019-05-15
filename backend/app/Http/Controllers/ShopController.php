@@ -21,77 +21,46 @@ class ShopController extends Controller
 
     public function getShops()
     {
-        try {
-            $user = auth()->userOrFail();
+        $user = auth()->userOrFail();
 
-            $preferredShops = $user->shops()->get();
+        $preferredShops = $user->shops()->get();
 
-            $shops = $this->shopService->getShops();
+        $shops = $this->shopService->getShops();
 
-            $shops = $shops->diff($preferredShops);
+        $shops = $shops->diff($preferredShops);
 
-            return response()->json([
-                'shops' => $shops,
-            ], 200);
-
-        } catch (UserNotDefinedException $e) {
-            return response()->json(['status' => false, 'message' => "User not found", 'type' => self::INVALID_TOKEN], 402);
-        } catch (\Exception $e) {
-            return response()->json(['status' => false, 'message' => "Something wrong happen", 'type' => self::UNKNOWN_REASON], 402);
-        }
-
+        return response()->json([ 'shops' => $shops,], 200);
     }
 
     public function likeShop(Request $request)
     {
-        try {
-            $user = auth()->userOrFail();
+        $user = auth()->userOrFail();
 
-            $shopId =  $request->get('shopId');
+        $shopId =  $request->get('shopId');
 
-            if (! $user->shops()->where('id', $shopId)->first()) {
-                $user->shops()->attach($request->get('shopId'));
-            }
-
-            return response()->json(['message' => 'the shop is successfully added to your preferred shops list'], 200);
-
-        } catch (UserNotDefinedException $e) {
-            return response()->json(['status' => false, 'message' => "User not found", 'type' => self::INVALID_TOKEN], 402);
-        } catch (\Exception $e) {
-            return response()->json(['status' => false, 'message' => "Something wrong happen", 'type' => self::UNKNOWN_REASON], 402);
+        if (! $user->shops()->where('id', $shopId)->first()) {
+            $user->shops()->attach($request->get('shopId'));
         }
+
+        return response()->json(['message' => 'the shop is successfully added to your preferred shops list'], 200);
     }
 
     public function getPreferredShops()
     {
-        try {
-            $user = auth()->userOrFail();
-            $preferredShops = $user->shops;
+        $user = auth()->userOrFail();
+        $preferredShops = $user->shops;
 
-            return response()->json(['shops' => $preferredShops], 200);
-
-        } catch (UserNotDefinedException $e) {
-            return response()->json(['status' => false, 'message' => "User not found", 'type' => self::INVALID_TOKEN], 402);
-        } catch (\Exception $e) {
-            return response()->json(['status' => false, 'message' => "Something wrong happen", 'type' => self::UNKNOWN_REASON], 402);
-        }
+        return response()->json(['shops' => $preferredShops], 200);
     }
 
     public function removePreferredShop(Request $request)
     {
-        try {
-            $user = auth()->userOrFail();
+        $user = auth()->userOrFail();
 
-            if ($user->shops()->where('id', $request->get('shopId'))->first()) {
-                $user->shops()->detach($request->get('shopId'));
-            }
-
-            return response()->json(['message' => 'the shop is successfully removed from your preferred shops list'], 200);
-
-        } catch (UserNotDefinedException $e) {
-            return response()->json(['status' => false, 'message' => "User not found", 'type' => self::INVALID_TOKEN], 402);
-        } catch (\Exception $e) {
-            return response()->json(['status' => false, 'message' => "Something wrong happen", 'type' => self::UNKNOWN_REASON], 402);
+        if ($user->shops()->where('id', $request->get('shopId'))->first()) {
+            $user->shops()->detach($request->get('shopId'));
         }
+
+        return response()->json(['message' => 'the shop is successfully removed from your preferred shops list'], 200);
     }
 }

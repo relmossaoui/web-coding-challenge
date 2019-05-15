@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SignInUserRequest;
 use App\Http\Requests\SignUpUserRequest;
 use App\Services\User\UserService;
+use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 
 class AuthController extends Controller
 {
@@ -18,23 +19,15 @@ class AuthController extends Controller
 
     public function signUp(SignUpUserRequest $request)
     {
-       try {
-           $this->userService->createUser([
-               'email' => $request->get('email'),
-               'password' => bcrypt($request->get('password'))
-           ]);
+       $this->userService->createUser([
+           'email' => $request->get('email'),
+           'password' => bcrypt($request->get('password'))
+       ]);
 
-           return response()->json([
-               'status' => true,
-               'message' => "Congrats! you are successfully registered"
-           ], 200);
-
-       } catch(\Exception $e) {
-           return response()->json([
-               'status' => false,
-               'message' => "Oooops! something wrong happen"
-           ], 402);
-       }
+       return response()->json([
+           'status' => true,
+           'message' => "Congrats! you are successfully registered"
+       ], 200);
     }
 
     public function signIn(SignInUserRequest $request)
@@ -42,14 +35,9 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {
-            return response()->json(
-                [   "status" => false,
-                    "message" => "User not found",
-                ], 402);
+            throw new UserNotDefinedException();
         }
 
-        return response()->json([
-            'token' => $token
-        ], 200);
+        return response()->json([ 'token' => $token ], 200);
     }
 }
