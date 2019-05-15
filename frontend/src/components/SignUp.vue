@@ -31,15 +31,17 @@
         methods: {
             async signUp () {
                 try {
-                    await http('post', `signup`, {
+                    let response = await http('post', `signup`, {
                         "email" : this.email,
                         "password": this.password
                     });
 
+                    this.$store.commit('SET_MESSAGE', response.data)
+
                     this.$router.push({name: 'signin'})
 
                 } catch (error) {
-                    this.errorMessage = error.response.data.message
+                    this.$store.commit('SET_MESSAGE', error.response.data)
                 }
             }
         }

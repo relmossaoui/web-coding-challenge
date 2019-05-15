@@ -31,6 +31,8 @@
             } catch (error) {
                 if (error.response.data.type == 1) {
                     this.$store.dispatch('logout')
+                } else {
+                    this.$store.commit('SET_MESSAGE', error.response.data)
                 }
             }
         },
@@ -38,14 +40,16 @@
         methods: {
             async likeShop(shop) {
                 try {
-                    await http('post', `shops/like?token=${localStorage.getItem('token')}`, {
+                    let response = await http('post', `shops/like?token=${localStorage.getItem('token')}`, {
                         "shopId" : shop.id
                     });
+
+                    this.$store.commit('SET_MESSAGE', response.data)
 
                     this.shops.splice(this.shops.indexOf(shop), 1)
 
                 } catch (error) {
-                    this.errorMessage = error.response.data.message
+                    this.$store.commit('SET_MESSAGE', error.response.data)
                 }
             }
         }

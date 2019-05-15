@@ -11,12 +11,19 @@
         <a href="#" @click.prevent="signOut">sign out</a>
       </template>
     </div>
+    <Message :notification="message" v-if="message"></Message>
     <router-view/>
   </div>
 </template>
 
 <script>
+  import Message from "./components/Message";
+
   export default {
+    components: {
+      Message
+    },
+
     methods: {
       signOut() {
         this.$store.dispatch('logout');
@@ -26,6 +33,10 @@
     computed: {
       isLogged() {
         return this.$store.state.isLogged
+      },
+
+      message() {
+        return this.$store.state.message
       }
     }
   }

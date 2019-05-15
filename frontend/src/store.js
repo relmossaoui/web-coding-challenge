@@ -9,7 +9,7 @@ export default new Vuex.Store({
   state: {
     isLogged : !!localStorage.getItem('token'),
     pending : false,
-    loginErrorMessage: ''
+    message: null
   },
 
   mutations: {
@@ -17,20 +17,33 @@ export default new Vuex.Store({
       state.pending = true;
       state.isLogged = false
     },
+
     LOGIN_SUCCESS(state, token) {
       state.pending = false;
       state.isLogged = true;
       localStorage.setItem('token', token)
-      state.loginErrorMessage = ''
     },
-    LOGIN_FAILED(state, message) {
+
+    LOGIN_FAILED(state) {
       state.pending = false;
       state.isLogged = false;
-      state.loginErrorMessage = message;
     },
+
     LOGIN_OUT(state) {
       localStorage.removeItem('token')
       state.isLogged = false;
+    },
+    
+    SET_MESSAGE(state, message) {
+      state.message = message
+
+      setTimeout(function() {
+        state.message = null;
+      }
+      , 2000)
+    },
+    CLEAR_MESSAGE(state) {
+      state.message = null
     }
   },
   actions: {
@@ -44,7 +57,8 @@ export default new Vuex.Store({
         router.push({name: 'shops'});
 
       } catch (error) {
-        commit('LOGIN_FAILED', error.response.data.message)
+        commit('LOGIN_FAILED')
+        commit('SET_MESSAGE', error.response.data)
       }
     },
 

@@ -29,7 +29,7 @@ class ShopController extends Controller
 
         $shops = $shops->diff($preferredShops);
 
-        return response()->json([ 'shops' => $shops,], 200);
+        return response()->json([ 'shops' => $shops ], 200);
     }
 
     public function likeShop(Request $request)
@@ -42,7 +42,7 @@ class ShopController extends Controller
             $user->shops()->attach($request->get('shopId'));
         }
 
-        return response()->json(['message' => 'the shop is successfully added to your preferred shops list'], 200);
+        return response()->json(['status' => true, 'message' => 'the shop is successfully added to your preferred shops list'], 200);
     }
 
     public function getPreferredShops()
@@ -61,6 +61,6 @@ class ShopController extends Controller
             $user->shops()->detach($request->get('shopId'));
         }
 
-        return response()->json(['message' => 'the shop is successfully removed from your preferred shops list'], 200);
+        return response()->json(['status' => true, 'message' => 'the shop is successfully removed from your preferred shops list'], 200);
     }
 }
