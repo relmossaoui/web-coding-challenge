@@ -29,7 +29,7 @@ class ShopController extends Controller
 
         $shops = $shops->diff($preferredShops);
 
-        return response()->json([ 'shops' => $shops ], 200);
+        return response()->json(['status' => true,'shops' => $shops ], 200);
     }
 
     public function likeShop(Request $request)
@@ -50,7 +50,7 @@ class ShopController extends Controller
         $user = auth()->userOrFail();
         $preferredShops = $user->shops;
 
-        return response()->json(['shops' => $preferredShops], 200);
+        return response()->json(['status' => true, 'shops' => $preferredShops], 200);
     }
 
     public function removePreferredShop(Request $request)

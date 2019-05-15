@@ -26,14 +26,18 @@
             try {
                 let response = await http('get', `shops?token=${localStorage.getItem('token')}`);
 
-                this.shops = response.data.shops
+                if (response.status) {
+                    this.shops = response.data.shops
+                } else {
+                    if (response.data.type == 1) {
+                        this.$store.dispatch('logout')
+                    } else {
+                        this.$store.commit('SET_MESSAGE', response.data)
+                    }
+                }
 
             } catch (error) {
-                if (error.response.data.type == 1) {
-                    this.$store.dispatch('logout')
-                } else {
-                    this.$store.commit('SET_MESSAGE', error.response.data)
-                }
+                this.$store.commit('SET_MESSAGE')
             }
         },
 
@@ -44,12 +48,16 @@
                         "shopId" : shop.id
                     });
 
-                    this.$store.commit('SET_MESSAGE', response.data)
+                    if (response.status) {
+                        this.$store.commit('SET_MESSAGE', response.data)
 
-                    this.shops.splice(this.shops.indexOf(shop), 1)
+                        this.shops.splice(this.shops.indexOf(shop), 1)
+                    } else {
+                        this.$store.commit('SET_MESSAGE', response.data)
+                    }
 
                 } catch (error) {
-                    this.$store.commit('SET_MESSAGE', error.response.data)
+                    this.$store.commit('SET_MESSAGE')
                 }
             }
         }

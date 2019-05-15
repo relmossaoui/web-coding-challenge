@@ -1,10 +1,10 @@
 <template>
-    <div v-if="notification.status">
-        <div class="alert alert-success col-md-4 offset-4" role="alert" v-if="notification.message">
+    <div v-if="notification.status" class="message-notification">
+        <div class="alert alert-success " role="alert" v-if="notification.message">
             {{ notification.message}}
         </div>
     </div>
-    <div v-else>
+    <div v-else >
         <div class="alert alert-danger col-md-4 offset-4" role="alert" v-if="notification.message">
             {{ notification.message}}
         </div>
@@ -25,3 +25,12 @@
         props: ['notification']
     }
 </script>
+
+<style scoped>
+    .message-notification {
+        position: fixed;
+        top: 17px;
+        right: 20px;
+        z-index: 10;
+    }
+</style>

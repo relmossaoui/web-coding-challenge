@@ -18,22 +18,25 @@
     export default {
         data () {
             return {
-                preferredShops: [],
-                errorMessage: null
+                preferredShops: []
             }
         },
         async created() {
             try {
                 let response = await http('get', `shops/preferred?token=${localStorage.getItem('token')}`);
 
-                this.preferredShops = response.data.shops
+                if (response.status) {
+                    this.preferredShops = response.data.shops
+                } else {
+                    if (response.data.type == 1) {
+                        this.$store.dispatch('logout')
+                    } else {
+                        this.$store.commit('SET_MESSAGE', response.data)
+                    }
+                }
 
             } catch (error) {
-                if (error.response.data.type == 1) {
-                    this.$store.dispatch('logout')
-                } else {
-                    this.$store.commit('SET_MESSAGE', error.response.data)
-                }
+                this.$store.commit('SET_MESSAGE')
             }
         },
 
@@ -44,12 +47,17 @@
                         "shopId" : shop.id
                     });
 
-                    this.preferredShops.splice(this.preferredShops.indexOf(shop), 1)
+                    if (response.status) {
+                        this.preferredShops.splice(this.preferredShops.indexOf(shop), 1)
 
-                    this.$store.commit('SET_MESSAGE', response.data)
+                        this.$store.commit('SET_MESSAGE', response.data)
+
+                    } else {
+                        this.$store.commit('SET_MESSAGE', response.data)
+                    }
 
                 } catch (error) {
-                    this.$store.commit('SET_MESSAGE', error.response.data)
+                    this.$store.commit('SET_MESSAGE')
                 }
             }
         }

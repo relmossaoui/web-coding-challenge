@@ -38,6 +38,6 @@ class AuthController extends Controller
             throw new UserNotDefinedException();
         }
 
-        return response()->json([ 'token' => $token ], 200);
+        return response()->json(['status' => true, 'token' => $token ], 200);
     }
 }

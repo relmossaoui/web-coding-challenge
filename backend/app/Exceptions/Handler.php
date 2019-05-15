@@ -50,19 +50,18 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof ValidationException) {
-            return response()->json(['status' => false, 'data' => $exception->errors()], 402);
+            return response()->json(['status' => false, 'data' => $exception->errors()], 200);
         }
         if ($exception instanceof TokenExpiredException) {
-            return response()->json(['status' => false, 'message' => "Token was expired", 'type' => 1], 402);
+            return response()->json(['status' => false, 'message' => "Token was expired", 'type' => 1], 200);
         }
 
         if ($exception instanceof UserNotDefinedException) {
-            return response()->json(['status' => false, 'message' => "email or/and password are incorrect"], 402);
+            return response()->json(['status' => false, 'message' => "email or/and password are incorrect"], 200);
         }
 
         if ($exception instanceof Exception) {
-            return response()->json(['status' => false, 'message' => "Something wrong happen"], 402);
-
+            return response()->json(['status' => false, 'message' => "Something wrong happen"], 200);
         }
 
         return parent::render($request, $exception);

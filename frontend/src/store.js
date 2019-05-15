@@ -5,6 +5,8 @@ import router from './router.js'
 
 Vue.use(Vuex)
 
+const defaultMessage =  {'status' : false, 'message': "Oooops! something wrong ..."};
+
 export default new Vuex.Store({
   state: {
     isLogged : !!localStorage.getItem('token'),
@@ -33,8 +35,8 @@ export default new Vuex.Store({
       localStorage.removeItem('token')
       state.isLogged = false;
     },
-    
-    SET_MESSAGE(state, message) {
+
+    SET_MESSAGE(state, message = defaultMessage) {
       state.message = message
 
       setTimeout(function() {
@@ -52,13 +54,18 @@ export default new Vuex.Store({
       try {
         let response = await http('post', 'signin', options.credentials);
 
-        commit('LOGIN_SUCCESS', response.data.token)
+        if (response.data.status) {
+          commit('LOGIN_SUCCESS', response.data.token)
 
-        router.push({name: 'shops'});
+          router.push({name: 'shops'});
+        } else {
+          commit('LOGIN_FAILED')
 
+          commit('SET_MESSAGE', response.data)
+        }
       } catch (error) {
         commit('LOGIN_FAILED')
-        commit('SET_MESSAGE', error.response.data)
+        commit('SET_MESSAGE')
       }
     },
 

@@ -1,8 +1,5 @@
 <template>
     <div class="col-md-4 offset-4">
-        <div class="alert alert-danger" role="alert" v-if="errorMessage">
-            {{ errorMessage}}
-        </div>
         <form>
             <div class="form-group">
                 <input type="email" class="form-control" id="emailId" aria-describedby="emailHelp" v-model="email" placeholder="Enter email" />
@@ -23,8 +20,7 @@
         data () {
             return {
                 email: '',
-                password: '',
-                errorMessage: ''
+                password: ''
             }
         },
 
@@ -36,12 +32,15 @@
                         "password": this.password
                     });
 
-                    this.$store.commit('SET_MESSAGE', response.data)
+                    if (response.data.status) {
+                        this.$store.commit('SET_MESSAGE', response.data)
 
-                    this.$router.push({name: 'signin'})
-
+                        this.$router.push({name: 'signin'})
+                    } else {
+                        this.$store.commit('SET_MESSAGE', response.data)
+                    }
                 } catch (error) {
-                    this.$store.commit('SET_MESSAGE', error.response.data)
+                    this.$store.commit('SET_MESSAGE')
                 }
             }
         }
