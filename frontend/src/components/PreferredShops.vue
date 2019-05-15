@@ -24,7 +24,7 @@
         },
         async created() {
             try {
-                let response = await http('post', `shops/preferred?token=${localStorage.getItem('token')}`);
+                let response = await http('get', `shops/preferred?token=${localStorage.getItem('token')}`);
 
                 this.preferredShops = response.data.shops
 

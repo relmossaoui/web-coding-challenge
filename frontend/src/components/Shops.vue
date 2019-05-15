@@ -24,7 +24,7 @@
 
         async created() {
             try {
-                let response = await http('post', `shops?token=${localStorage.getItem('token')}`);
+                let response = await http('get', `shops?token=${localStorage.getItem('token')}`);
 
                 this.shops = response.data.shops
 
