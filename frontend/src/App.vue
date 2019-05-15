@@ -6,8 +6,8 @@
         <router-link to="/signin">sign in</router-link>
       </template>
       <template v-else>
-        <router-link to="/shops">Shops</router-link> |
-        <router-link to="/shops/preferred">Preferred shops</router-link> |
+        <router-link to="/shops">NearBy Shops</router-link> |
+        <router-link to="/shops/preferred">My preferred shops</router-link> |
         <a href="#" @click.prevent="signOut">sign out</a>
       </template>
     </div>
