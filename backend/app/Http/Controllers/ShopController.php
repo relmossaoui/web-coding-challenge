@@ -2,65 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Services\Shop\ShopService;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 
 class ShopController extends Controller
 {
-    const INVALID_TOKEN     = 1;
-    const UNKNOWN_REASON    = 2;
-
     /** @var ShopService $shopService */
     protected $shopService;
+
+    /** @var User $user */
+    protected $user;
 
     public function __construct(ShopService $shopService)
     {
         $this->shopService = $shopService;
+
+        $this->user = auth()->userOrFail();
     }
 
     public function getShops()
     {
-        $user = auth()->userOrFail();
-
-        $preferredShops = $user->shops()->get();
-
-        $shops = $this->shopService->getShops();
-
-        $shops = $shops->diff($preferredShops);
-
-        return response()->json(['status' => true,'shops' => $shops ], 200);
+        return response()->json([
+            'status' => true,
+            'shops' => $this->shopService->getShopsNotPreferredByUser($this->user)
+        ], 200);
     }
 
     public function likeShop(Request $request)
     {
-        $user = auth()->userOrFail();
-
         $shopId =  $request->get('shopId');
 
-        if (! $user->shops()->where('id', $shopId)->first()) {
-            $user->shops()->attach($request->get('shopId'));
-        }
+        $this->shopService->attachShopToUser($this->user, $shopId);
 
-        return response()->json(['status' => true, 'message' => 'the shop is successfully added to your preferred shops list'], 200);
+        return response()->json([
+            'status' => true,
+            'message' => 'the shop is successfully added to your preferred shops list'
+        ], 200);
     }
 
     public function getPreferredShops()
     {
-        $user = auth()->userOrFail();
-        $preferredShops = $user->shops;
-
-        return response()->json(['status' => true, 'shops' => $preferredShops], 200);
+        return response()->json([
+            'status' => true,
+            'shops' => $this->shopService->getPreferredShops($this->user)
+        ], 200);
     }
 
     public function removePreferredShop(Request $request)
     {
-        $user = auth()->userOrFail();
+        $shopId = $request->get('shopId');
 
-        if ($user->shops()->where('id', $request->get('shopId'))->first()) {
-            $user->shops()->detach($request->get('shopId'));
-        }
+        $this->shopService->detachShopFromUser($this->user, $shopId);
 
-        return response()->json(['status' => true, 'message' => 'the shop is successfully removed from your preferred shops list'], 200);
+        return response()->json([
+            'status' => true,
+            'message' => 'the shop is successfully removed from your preferred shops list'
+        ], 200);
     }
 }
