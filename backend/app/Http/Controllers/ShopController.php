@@ -21,6 +21,11 @@ class ShopController extends Controller
         $this->user = auth()->userOrFail();
     }
 
+    /**
+     * Get shops not preferred by authenticated user.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getShops()
     {
         return response()->json([
@@ -29,6 +34,13 @@ class ShopController extends Controller
         ], 200);
     }
 
+    /**
+     * Add a shop to preferred shops of the authenticated user.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function likeShop(Request $request)
     {
         $shopId =  $request->get('shopId');
@@ -41,6 +53,11 @@ class ShopController extends Controller
         ], 200);
     }
 
+    /**
+     * Get preferred shops of the authenticated user.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getPreferredShops()
     {
         return response()->json([
@@ -49,6 +66,12 @@ class ShopController extends Controller
         ], 200);
     }
 
+    /**
+     * remove a shop from preferred shops of the authenticated user.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function removePreferredShop(Request $request)
     {
         $shopId = $request->get('shopId');

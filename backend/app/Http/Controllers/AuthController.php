@@ -17,6 +17,12 @@ class AuthController extends Controller
         $this->userService = $userService;
     }
 
+    /**
+     * Register a new user.
+     *
+     * @param SignUpUserRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function signUp(SignUpUserRequest $request)
     {
        $this->userService->createUser([
@@ -30,6 +36,13 @@ class AuthController extends Controller
        ], 200);
     }
 
+    /**
+     * Sign in a user.
+     *
+     * @param SignInUserRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws UserNotDefinedException
+     */
     public function signIn(SignInUserRequest $request)
     {
         $credentials = request(['email', 'password']);
