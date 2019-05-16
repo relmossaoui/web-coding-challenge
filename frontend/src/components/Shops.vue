@@ -14,6 +14,8 @@
 <script>
     import { http } from '../config/index.js';
 
+    const INVALID_TOKEN = 1;
+
     export default {
         data () {
             return {
@@ -29,7 +31,7 @@
                 if (response.status) {
                     this.shops = response.data.shops
                 } else {
-                    if (response.data.type == 1) {
+                    if (response.data.type == INVALID_TOKEN) {
                         this.$store.dispatch('logout')
                     } else {
                         this.$store.commit('SET_MESSAGE', response.data)
