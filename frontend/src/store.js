@@ -42,12 +42,10 @@ export default new Vuex.Store({
       setTimeout(function() {
         state.message = null;
       }
-      , 2000)
-    },
-    CLEAR_MESSAGE(state) {
-      state.message = null
+      , 3000)
     }
   },
+
   actions: {
     async login ({commit}, options) {
       commit('LOGIN');
@@ -60,7 +58,6 @@ export default new Vuex.Store({
           router.push({name: 'shops'});
         } else {
           commit('LOGIN_FAILED')
-
           commit('SET_MESSAGE', response.data)
         }
       } catch (error) {
