@@ -26,7 +26,7 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getShops()
+    public function getShopsNotPreferredByUser()
     {
         return response()->json([
             'status' => true,

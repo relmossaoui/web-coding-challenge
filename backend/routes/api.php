@@ -20,7 +20,7 @@ Route::group([], function ($router) {;
 });
 
 Route::group([ 'middleware' => 'api', 'prefix' => 'shops'], function () {
-    Route::get('', 'ShopController@getShops');
+    Route::get('', 'ShopController@getShopsNotPreferredByUser');
     Route::post('like', 'ShopController@likeShop');
     Route::get('preferred', 'ShopController@getPreferredShops');
     Route::post('remove', 'ShopController@removePreferredShop');
