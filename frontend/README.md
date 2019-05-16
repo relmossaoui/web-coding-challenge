@@ -19,6 +19,12 @@ npm run serve
 npm run build
 ```
 
+### Config api endpoint base (config/index)
+```
+API_ENDPOINT_BASE = "http://dev.backend.com/api/" 
+```
+
+
 # Used technologies
 
 - [Vue js 2.6.10](https://vuejs.org)
